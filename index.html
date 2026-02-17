@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>noflames-bit.dev</title>
+  <style>
+    :root {
+      --bg: #0f0f17;
+      --text: #e0e0ff;
+      --accent: #ff6b6b;
+      --card: #1a1a2e;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: linear-gradient(135deg, #1e1e3f, #0f0f17);
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid #333366;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      color: var(--accent);
+    }
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    #latest {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #88ff88;
+    }
+    #history {
+      list-style: none;
+      padding: 0;
+    }
+    #history li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #333;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      color: #888;
+      border-top: 1px solid #333366;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>noflames-bit.dev</h1>
+    <p>Real-time-ish data updates every ~10 minutes (powered by future backend magic)</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Latest Reading</h2>
+      <p id="latest">Loading latest data...</p>
+    </div>
+
+    <div class="card">
+      <h2>History Log</h2>
+      <ul id="history">
+        <!-- Data will appear here -->
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Flaming.hodl ₿ • Hosted on GitHub Pages • <a href="https://github.com/noflames-bit/noflames-bit.github.io" style="color: #aaa;">Source</a>
+  </footer>
+
+  <script>
+    // Placeholder: Later fetch from /data.json or your Worker endpoint
+    // For now, fake some data to see it working
+    const fakeData = [
+      { timestamp: "2026-02-17 01:15 UTC", value: "42069 sats" },
+      { timestamp: "2026-02-17 01:05 UTC", value: "41800 sats" },
+      { timestamp: "2026-02-17 00:55 UTC", value: "41512 sats" }
+    ];
+
+    function renderData(data) {
+      if (data.length === 0) return;
+
+      const latest = data[data.length - 1];
+      document.getElementById('latest').innerHTML = 
+        `${latest.value} @ ${latest.timestamp}`;
+
+      const ul = document.getElementById('history');
+      ul.innerHTML = '';
+      data.forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.timestamp}: ${entry.value}`;
+        ul.appendChild(li);
+      });
+    }
+
+    // Simulate loading data
+    setTimeout(() => renderData(fakeData), 800);
+  </script>
+
+</body>
+</html>
